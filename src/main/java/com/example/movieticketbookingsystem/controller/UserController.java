@@ -1,5 +1,6 @@
 package com.example.movieticketbookingsystem.controller;
 
+import com.example.movieticketbookingsystem.dto.UserRegistrationRequest;
 import com.example.movieticketbookingsystem.entity.UserDetails;
 import com.example.movieticketbookingsystem.service.UserService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
@@ -17,12 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-    @Autowired
     private final RestResponseBuilder restResponseBuilder;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserDetails>> addUser(@RequestBody UserDetails user){
-        UserDetails userDetails =userService.addUser(user);
+    public ResponseEntity<ResponseStructure<UserDetails>> addUser(@RequestBody UserRegistrationRequest user){
+        UserDetails userDetails =  userService.addUser(user);
       return restResponseBuilder.success(HttpStatus.OK,"new user details has been added",userDetails);
     }
 }
