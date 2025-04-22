@@ -10,7 +10,7 @@ import lombok.Setter;
 @Builder
 public class ErrorStructure<U> {
 
-    private int errorCode;
+    private int statusCode;
    @JsonProperty(namespace = "error_message")
     private String errorMessage;
 }
