@@ -1,0 +1,29 @@
+package com.example.movieticketbookingsystem.entity;
+
+import com.example.movieticketbookingsystem.enums.UserRole;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Setter
+@Getter
+public class UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String userId;
+    private String username;
+    private String email;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+    private String phoneNumber;
+    private LocalDate dateOfBirth;
+    private Long createdAt;
+    private Long updatedAt;
+
+}
