@@ -14,6 +14,8 @@
     import lombok.AllArgsConstructor;
     import org.springframework.stereotype.Service;
 
+    import java.time.Instant;
+
     @Service
     @AllArgsConstructor
     public class UserServiceImpl implements UserService {
@@ -50,6 +52,19 @@
 
         }
 
+        @Override
+        public UserResponse softDeleteUser(UserUpdationRequest userRequest, String email) {
+            if (userRepository.existsByEmail(email)){
+                UserDetails user = userRepository.findByEmail(email);
+                user.setDelete(true);
+                user.setDeletedAt(Instant.now());
+                userRepository.save(user);
+                return userMapper.userDetailsResponseMapper(user);
+
+            }
+            throw new UserNotFoundByEmailException("Email not found in the Database");
+        }
+
 
         private UserDetails copy(UserDetails userRole, UserRegistrationRequest user) {
 //        UserDetails userRole = user.getUserRole()==UserRole.USER ? new User() : new TheaterOwner();
@@ -59,6 +74,7 @@
             userRole.setDateOfBirth(user.dateOfBirth());
             userRole.setPhoneNumber(user.phoneNumber());
             userRole.setUsername(user.username());
+            userRole.setDelete(false);
             userRepository.save(userRole);
             return userRole;
         }
@@ -68,6 +84,7 @@
             userRole.setPhoneNumber(user.phoneNumber());
             userRole.setEmail(user.email());
             userRole.setUsername(user.username());
+            userRole.setDelete(false);
             userRepository.save(userRole);
             return userRole;
         }
