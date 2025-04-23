@@ -26,7 +26,7 @@ public class    UserController {
     }
 
     @PutMapping("/users/{email}")
-    public ResponseEntity<ResponseStructure<UserResponse>> editUser(@PathVariable String email,@RequestBody UserUpdationRequest user){
+    public ResponseEntity<ResponseStructure<UserResponse>> editUser(@PathVariable String email,@RequestBody @Valid UserUpdationRequest user){
         UserResponse userDetails = userService.editUser(user, email);
         return restResponseBuilder.success(HttpStatus.OK,"User Details has been updated",userDetails);
     }
