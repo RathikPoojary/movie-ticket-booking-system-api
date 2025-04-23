@@ -6,6 +6,7 @@ import com.example.movieticketbookingsystem.dto.UserUpdationRequest;
 import com.example.movieticketbookingsystem.service.UserService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
 import com.example.movieticketbookingsystem.utility.RestResponseBuilder;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class    UserController {
     private final RestResponseBuilder restResponseBuilder;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRegistrationRequest user){
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody @Valid UserRegistrationRequest user){
         UserResponse userDetails =  userService.addUser(user);
         return restResponseBuilder.success(HttpStatus.OK,"New User Details has been added",userDetails);
     }
