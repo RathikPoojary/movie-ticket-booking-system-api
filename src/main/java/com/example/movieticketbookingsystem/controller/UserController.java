@@ -1,28 +1,33 @@
 package com.example.movieticketbookingsystem.controller;
 
 import com.example.movieticketbookingsystem.dto.UserRegistrationRequest;
-import com.example.movieticketbookingsystem.entity.UserDetails;
+import com.example.movieticketbookingsystem.dto.UserResponse;
+import com.example.movieticketbookingsystem.dto.UserUpdationRequest;
 import com.example.movieticketbookingsystem.service.UserService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
 import com.example.movieticketbookingsystem.utility.RestResponseBuilder;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class    UserController {
 
+    private final UserService userService;
     private final RestResponseBuilder restResponseBuilder;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserDetails>> addUser(@RequestBody UserDetails   user){
-        UserDetails userDetails =  userService.addUser(user);
-      return restResponseBuilder.success(HttpStatus.OK,"new user details has been added",userDetails);
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRegistrationRequest user){
+        UserResponse userDetails =  userService.addUser(user);
+        return restResponseBuilder.success(HttpStatus.OK,"New User Details has been added",userDetails);
     }
+
+    @PutMapping("/users/{email}")
+    public ResponseEntity<ResponseStructure<UserResponse>> editUser(@PathVariable String email,@RequestBody UserUpdationRequest user){
+        UserResponse userDetails = userService.editUser(user, email);
+        return restResponseBuilder.success(HttpStatus.OK,"User Details has been updated",userDetails);
+    }
+
 }
