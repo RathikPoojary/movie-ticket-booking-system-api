@@ -34,5 +34,5 @@ public record UserRegistrationRequest(
         @NotNull
         @Past(message = "Date of birth must be a past date")
         LocalDate dateOfBirth
-
-) { }
+) {
+}
