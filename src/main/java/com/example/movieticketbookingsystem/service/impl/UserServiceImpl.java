@@ -53,7 +53,7 @@
         }
 
         @Override
-        public UserResponse softDeleteUser(UserUpdationRequest userRequest, String email) {
+        public UserResponse softDeleteUser(String email) {
             if (userRepository.existsByEmail(email)){
                 UserDetails user = userRepository.findByEmail(email);
                 user.setDelete(true);

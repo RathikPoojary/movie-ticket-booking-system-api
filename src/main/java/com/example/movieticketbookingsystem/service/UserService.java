@@ -9,5 +9,5 @@ public interface UserService {
 
     UserResponse editUser(UserUpdationRequest user,String email);
 
-    UserResponse softDeleteUser(UserUpdationRequest user, String email);
+    UserResponse softDeleteUser(String email);
 }
