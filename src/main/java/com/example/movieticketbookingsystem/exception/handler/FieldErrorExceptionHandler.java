@@ -28,9 +28,9 @@ public class FieldErrorExceptionHandler extends ResponseEntityExceptionHandler {
 
            List<CustomFieldError> customFieldErrors = new ArrayList<>();
 
-           for(ObjectError objectError : errors){
-              if (errors instanceof FieldError){
-                  FieldError fieldError = (FieldError) errors;
+           for(ObjectError error : errors){
+              if (error instanceof FieldError){
+                  FieldError fieldError = (FieldError) error;
                   customFieldErrors.add(CustomFieldError.builder()
                           .field(fieldError.getField())
                           .rejectedValue((String) fieldError.getRejectedValue())
