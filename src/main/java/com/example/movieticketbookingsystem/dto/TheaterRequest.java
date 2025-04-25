@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 
 
-public record TheaterRegistrationRequest(
+public record TheaterRequest(
         @NotNull(message = "Name is required")
         @Size(min = 1,max = 20,message = "Name cannot be blank")
         String name,

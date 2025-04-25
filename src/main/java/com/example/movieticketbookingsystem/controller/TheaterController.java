@@ -1,6 +1,6 @@
 package com.example.movieticketbookingsystem.controller;
 
-import com.example.movieticketbookingsystem.dto.TheaterRegistrationRequest;
+import com.example.movieticketbookingsystem.dto.TheaterRequest;
 import com.example.movieticketbookingsystem.dto.TheaterResponse;
 import com.example.movieticketbookingsystem.service.TheaterService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
@@ -18,7 +18,7 @@ public class TheaterController {
     private final RestResponseBuilder responseBuilder;
 
     @PostMapping("/theaters")
-    public ResponseEntity<ResponseStructure<TheaterResponse>> addTheater(String email, @Valid @RequestBody TheaterRegistrationRequest theaterRegistrationRequest){
+    public ResponseEntity<ResponseStructure<TheaterResponse>> addTheater(String email, @Valid @RequestBody TheaterRequest theaterRegistrationRequest){
         TheaterResponse theaterResponse = theaterService.addTheater(email,theaterRegistrationRequest);
         return responseBuilder.success(HttpStatus.OK,"Theater has been added successfully",theaterResponse);
     }
@@ -28,7 +28,7 @@ public class TheaterController {
         return responseBuilder.success(HttpStatus.OK,"Theater has been successfully fetched", theaterResponse);
     }
     @PutMapping("/theaters/{theaterId}")
-    public ResponseEntity<ResponseStructure<TheaterResponse>> updateTheater(@PathVariable String theaterId, @Valid @RequestBody TheaterRegistrationRequest registrationRequest){
+    public ResponseEntity<ResponseStructure<TheaterResponse>> updateTheater(@PathVariable String theaterId, @Valid @RequestBody TheaterRequest registrationRequest){
         TheaterResponse theaterResponse = theaterService.updateTheater(theaterId,registrationRequest);
         return responseBuilder.success(HttpStatus.OK,"Theater has been successfully updated",theaterResponse);
     }
