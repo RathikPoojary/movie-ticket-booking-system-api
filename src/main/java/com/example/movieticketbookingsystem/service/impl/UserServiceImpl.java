@@ -10,8 +10,10 @@
     import com.example.movieticketbookingsystem.exception.UserNotFoundByEmailException;
     import com.example.movieticketbookingsystem.mapper.UserDetailsMapper;
     import com.example.movieticketbookingsystem.repository.UserRepository;
+    import com.example.movieticketbookingsystem.security.SecurityConfig;
     import com.example.movieticketbookingsystem.service.UserService;
     import lombok.AllArgsConstructor;
+    import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.stereotype.Service;
 
     import java.time.Instant;
@@ -22,6 +24,7 @@
 
         private final UserRepository userRepository;
         private final UserDetailsMapper userMapper;
+        private final PasswordEncoder passwordEncoder;
 
         public UserResponse addUser(UserRegistrationRequest user) {
             if (userRepository.existsByEmail(user.email()))
@@ -69,7 +72,7 @@
         private UserDetails copy(UserDetails userRole, UserRegistrationRequest user) {
 //        UserDetails userRole = user.getUserRole()==UserRole.USER ? new User() : new TheaterOwner();
             userRole.setUserRole(user.userRole());
-            userRole.setPassword(user.password());
+            userRole.setPassword(passwordEncoder.encode(user.password()));
             userRole.setEmail(user.email());
             userRole.setDateOfBirth(user.dateOfBirth());
             userRole.setPhoneNumber(user.phoneNumber());

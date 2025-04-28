@@ -38,6 +38,12 @@ public class ScreenServiceImpl implements ScreenService {
         throw new TheaterNotFoundByIdException("No Theater found by ID");
 
     }
+
+    @Override
+    public ScreenResponse findScreen(String theaterId, String screenId) {
+        return null;
+    }
+
     private Screen copy(ScreenRequest screenRequest, Screen screen, Theater theater){
         screen.setScreenType(screenRequest.screenType());
         screen.setCapacity(screenRequest.capacity());
