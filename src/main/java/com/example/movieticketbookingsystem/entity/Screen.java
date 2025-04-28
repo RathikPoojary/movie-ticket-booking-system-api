@@ -1,6 +1,7 @@
 package com.example.movieticketbookingsystem.entity;
 
 import com.example.movieticketbookingsystem.enums.ScreenType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +39,9 @@ public class Screen {
     @ManyToOne
     private Theater theater;
 
-    @OneToMany(mappedBy = "screen" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "screen" , cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OrderBy(value = "name")
+    @JsonIgnore
     private List<Seat> seats;
 
 }
