@@ -1,5 +1,6 @@
 package com.example.movieticketbookingsystem.entity;
 
+import com.example.movieticketbookingsystem.enums.ScreenType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,18 +18,15 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+public class Screen {
 
-public class Theater {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String theaterId;
-    private String name;
-    private String address;
-    private String city;
-    private String  landmark;
-
-    @ManyToOne
-    private TheaterOwner theaterOwner;
+    private String screenID;
+    @Enumerated(EnumType.STRING)
+    private ScreenType screenType;
+    private Integer capacity;
+    private Integer noOfRows;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -37,9 +35,10 @@ public class Theater {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "theater")
-    private List<Screen> screens;
+    @ManyToOne
+    private Theater theater;
 
+    @OneToMany(mappedBy = "screen" , cascade = CascadeType.PERSIST)
+    private List<Seat> seats;
 
 }
-
