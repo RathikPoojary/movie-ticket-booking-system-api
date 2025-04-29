@@ -19,23 +19,36 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@Table(name = "screen")
 public class Screen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "screen_id",updatable = false,nullable = false)
     private String screenID;
+
+    @Column(name = "screen_type",nullable = false)
     @Enumerated(EnumType.STRING)
     private ScreenType screenType;
+
+    @Column(name = "capacity",nullable = false)
     private Integer capacity;
+
+    @Column(name = "noOfRows",nullable = false)
     private Integer noOfRows;
 
+    @Column(name = "created_at",updatable = false,nullable = false)
     @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
 
+    @Column(name = "updated_at",nullable = false)
+    @LastModifiedDate
+    private Instant updatedAt;
+
+    @Column(name = "created_by",updatable = false)
     private String createdBy;
 
+    @JoinColumn(name = "theater_id")
     @ManyToOne
     private Theater theater;
 
