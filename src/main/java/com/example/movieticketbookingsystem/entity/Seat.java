@@ -17,9 +17,13 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String seatId;
 
+    private String name;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Screen screen;
+
+
 }
