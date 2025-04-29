@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ScreenServiceImpl implements ScreenService {
+
     private final TheaterRepository theaterRepository;
     private final ScreenRepository screenRepository;
     private final SeatRepository seatRepository;
@@ -42,8 +43,8 @@ public class ScreenServiceImpl implements ScreenService {
 
     @Override
     public ScreenResponse findScreen(String theaterId, String screenId) {
-        if(theaterRepository.existsById(theaterId)){
-            if(screenRepository.existsById(screenId)){
+        if (theaterRepository.existsById(theaterId)) {
+            if (screenRepository.existsById(screenId)) {
                 return screenMapper.screenResponseMapper(screenRepository.findById(screenId).get());
             }
             throw new ScreenNotFoundByIdException("Screen Not Found by Id");
@@ -80,5 +81,4 @@ public class ScreenServiceImpl implements ScreenService {
         }
         return seats;
     }
-
 }
