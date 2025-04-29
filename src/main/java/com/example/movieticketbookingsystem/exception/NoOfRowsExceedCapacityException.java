@@ -1,5 +1,6 @@
 package com.example.movieticketbookingsystem.exception;
 
+
 import lombok.Getter;
 
 @Getter
