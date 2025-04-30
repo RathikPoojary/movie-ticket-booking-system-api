@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @AllArgsConstructor
 public class ScreenExceptionHandler {
+
     private final RestResponseBuilder responseBuilder;
 
     @ExceptionHandler
+<<<<<<< HEAD
     public ResponseEntity<ErrorStructure> handleNoOfRowsExceedCapacityException(NoOfRowsExceedCapacityException ex){
+=======
+    public ResponseEntity<ErrorStructure> handleNoOfRowsExceedCapacityException(NoOfRowsExceedCapacityException ex) {
+>>>>>>> a395ecd156602385e827b3749865968ed2511934
         return responseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
@@ -27,4 +32,6 @@ public class ScreenExceptionHandler {
     public ResponseEntity<ErrorStructure> handleScreenNotFoundByIdException(ScreenNotFoundByIdException ex) {
         return responseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage());
     }
+
+
 }
