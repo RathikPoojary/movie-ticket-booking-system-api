@@ -20,11 +20,7 @@ public class ScreenExceptionHandler {
     private final RestResponseBuilder responseBuilder;
 
     @ExceptionHandler
-<<<<<<< HEAD
     public ResponseEntity<ErrorStructure> handleNoOfRowsExceedCapacityException(NoOfRowsExceedCapacityException ex){
-=======
-    public ResponseEntity<ErrorStructure> handleNoOfRowsExceedCapacityException(NoOfRowsExceedCapacityException ex) {
->>>>>>> a395ecd156602385e827b3749865968ed2511934
         return responseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 

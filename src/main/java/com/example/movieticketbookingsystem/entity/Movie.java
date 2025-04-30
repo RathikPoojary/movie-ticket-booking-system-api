@@ -2,10 +2,6 @@ package com.example.movieticketbookingsystem.entity;
 
 import com.example.movieticketbookingsystem.enums.Certificate;
 import com.example.movieticketbookingsystem.enums.Genre;
-<<<<<<< HEAD
-=======
-
->>>>>>> a395ecd156602385e827b3749865968ed2511934
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,18 +27,6 @@ public class Movie {
 
     @Column(name = "description")
     private String description;
-<<<<<<< HEAD
-    private String[] cast;
-    private Duration runtime;
-
-    @Enumerated(value = EnumType.STRING)
-    private Certificate certificate;
-
-    @Enumerated(value = EnumType.STRING)
-    private Genre genre;
-
-}
-=======
 
     @ElementCollection
     private Set<String> castList;
@@ -59,4 +43,3 @@ public class Movie {
     private Genre genre;
 
 }
->>>>>>> a395ecd156602385e827b3749865968ed2511934
