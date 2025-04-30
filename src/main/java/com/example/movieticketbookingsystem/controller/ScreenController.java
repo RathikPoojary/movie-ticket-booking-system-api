@@ -19,7 +19,7 @@ public class ScreenController {
     private final RestResponseBuilder responseBuilder;
 
     @PostMapping("/theaters/{theaterId}/screens")
-    public ResponseEntity<ResponseStructure<ScreenResponse>> addScreen(@PathVariable String theaterId, @RequestBody ScreenRequest screenRequest){
+    public ResponseEntity<ResponseStructure<ScreenResponse>> addScreen(@PathVariable String theaterId,@Valid @RequestBody ScreenRequest screenRequest){
         ScreenResponse screenResponse = screenService.addScreen(theaterId,screenRequest);
         return responseBuilder.success(HttpStatus.OK,"Screen has been added successfully",screenResponse);
     }
