@@ -49,7 +49,7 @@ public class UserDetails {
     @Column(name = "is_delete",nullable = false)
     private boolean isDelete;
 
-    @Column(name = "deleted_at",nullable = false)
+    @Column(name = "deleted_at")
     private Instant deletedAt;
 
     @Column(name = "created_at",updatable = false,nullable = false)

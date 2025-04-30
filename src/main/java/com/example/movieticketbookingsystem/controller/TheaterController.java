@@ -20,7 +20,7 @@ public class TheaterController {
 
     @PostMapping("/theaters")
     @PreAuthorize("hasAuthority('THEATER_OWNER')")
-    public ResponseEntity<ResponseStructure<TheaterResponse>> addTheater(String email, @Valid @RequestBody TheaterRequest theaterRegistrationRequest){
+    public ResponseEntity<ResponseStructure<TheaterResponse>> addTheater(@Valid @RequestParam String email, @Valid @RequestBody TheaterRequest theaterRegistrationRequest){
         TheaterResponse theaterResponse = theaterService.addTheater(email,theaterRegistrationRequest);
         return responseBuilder.success(HttpStatus.OK,"Theater has been added successfully",theaterResponse);
     }

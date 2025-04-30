@@ -22,6 +22,8 @@ public class Seat {
     @Column(name = "seat_id",nullable = false)
     private String seatId;
 
+    private String name;
+
     @Column(name = "created_at",updatable = false,nullable = false)
     @CreatedDate
     private Instant createdAt;
@@ -29,4 +31,5 @@ public class Seat {
     @ManyToOne
     @JoinColumn(name = "screen_id")
     private Screen screen;
+
 }

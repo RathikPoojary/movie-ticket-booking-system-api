@@ -25,7 +25,7 @@ public class Screen {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "screen_id",updatable = false,nullable = false)
-    private String screenID;
+    private String screenId;
 
     @Column(name = "screen_type",nullable = false)
     @Enumerated(EnumType.STRING)

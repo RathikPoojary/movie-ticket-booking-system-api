@@ -1,6 +1,7 @@
 package com.example.movieticketbookingsystem.exception;
 
-public class ScreenNotFoundByIdException extends RuntimeException{
+import lombok.Getter;
+
 
 import lombok.Getter;
 
