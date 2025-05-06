@@ -16,7 +16,7 @@ import java.time.Instant;
 @Setter
 @Getter
 @ToString
-@Table(name = "show")
+@Table(name = "movie_show")
 public class Show {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
