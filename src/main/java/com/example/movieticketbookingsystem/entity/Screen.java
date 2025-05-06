@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -25,7 +26,7 @@ public class Screen {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "screen_id",updatable = false,nullable = false)
-    private String screenID;
+    private String screenId;
 
     @Column(name = "screen_type",nullable = false)
     @Enumerated(EnumType.STRING)
@@ -48,7 +49,7 @@ public class Screen {
     @Column(name = "created_by",updatable = false)
     private String createdBy;
 
-    @JoinColumn(name = "theater_id")
+    @JoinColumn(name = "theater_id",nullable = false)
     @ManyToOne
     private Theater theater;
 
@@ -56,5 +57,9 @@ public class Screen {
     @OrderBy(value = "name")
     @JsonIgnore
     private List<Seat> seats;
+
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Show> shows;
 
 }

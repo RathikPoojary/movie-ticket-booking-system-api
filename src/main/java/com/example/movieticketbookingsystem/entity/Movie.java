@@ -2,7 +2,6 @@ package com.example.movieticketbookingsystem.entity;
 
 import com.example.movieticketbookingsystem.enums.Certificate;
 import com.example.movieticketbookingsystem.enums.Genre;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,5 +41,8 @@ public class Movie {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "genre")
     private Genre genre;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Show> shows = new HashSet<>();
 
 }

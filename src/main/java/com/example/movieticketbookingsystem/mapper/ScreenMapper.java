@@ -11,29 +11,32 @@ import java.util.List;
 
 @Component
 public class ScreenMapper {
-    public ScreenResponse screenResponseMapper(Screen screen){
+    public ScreenResponse screenResponseMapper(Screen screen)
+    {
         if (screen == null)
             return null;
         return new ScreenResponse(
-                screen.getScreenID(),
+                screen.getScreenId(),
                 screen.getScreenType(),
                 screen.getCapacity(),
-                screen.getNoOfRows()
+                screen.getNoOfRows(),
+                seatResponse(screen.getSeats())
         );
     }
 
-    public SeatResponse seatResponse(List<Seat> seats){
-        List<String> seatId = new ArrayList<>();
-        List<String> seatName = new ArrayList<>();
+    public List<SeatResponse> seatResponse(List<Seat> seats){
+        List<SeatResponse> seatList = new ArrayList<>();
 
-        for (Seat seat : seats){
-            seatId.add(seat.getSeatId());
-            seatName.add(seat.getName());
+        for (Seat seat : seats)
+        {
+
+            seatList.add(SeatResponse.builder()
+                    .seatId(seat.getSeatId())
+                    .name(seat.getName())
+                    .build());
+
         }
-        return SeatResponse.builder()
-                .seatId(seatId)
-                .name(seatName)
-                .build();
+        return seatList;
     }
 
 
