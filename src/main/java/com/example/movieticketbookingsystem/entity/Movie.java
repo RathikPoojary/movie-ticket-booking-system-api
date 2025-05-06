@@ -42,4 +42,7 @@ public class Movie {
     @Column(name = "genre")
     private Genre genre;
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Show> shows = new HashSet<>();
+
 }
