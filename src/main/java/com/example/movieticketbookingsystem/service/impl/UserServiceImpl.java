@@ -13,6 +13,7 @@
     import com.example.movieticketbookingsystem.security.SecurityConfig;
     import com.example.movieticketbookingsystem.service.UserService;
     import lombok.AllArgsConstructor;
+    import lombok.extern.slf4j.Slf4j;
     import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.stereotype.Service;
 
@@ -20,16 +21,18 @@
 
     @Service
     @AllArgsConstructor
+    @Slf4j
     public class UserServiceImpl implements UserService {
 
         private final UserRepository userRepository;
         private final UserDetailsMapper userMapper;
         private final PasswordEncoder passwordEncoder;
 
+        @Override
         public UserResponse addUser(UserRegistrationRequest user) {
             if (userRepository.existsByEmail(user.email()))
                 throw new UserExistsByThisEmailException("User with the Email is already exists");
-//            return copy(user);
+
             UserDetails userDetails = switch (user.userRole()) {
                 case USER -> copy(new User(), user);
                 case THEATER_OWNER -> copy(new TheaterOwner(), user);
@@ -40,12 +43,15 @@
 
         @Override
         public UserResponse editUser(UserUpdationRequest userRequest, String email) {
+            log.info("editing user...");
             if (userRepository.existsByEmail(email)) {
                 UserDetails user = userRepository.findByEmail(email);
-
-                if (userRepository.existsByEmail(userRequest.email()))
+                log.info("user is unique");
+                if (! user.getEmail().equals(userRequest.email()) && userRepository.existsByEmail(userRequest.email())){
                     throw new UserExistsByThisEmailException("User with the email already exists");
+                }
 
+                log.info("mapping data...");
                 user = copy(user, userRequest);
 
                 return userMapper.userDetailsResponseMapper(user);
@@ -57,20 +63,17 @@
 
         @Override
         public UserResponse softDeleteUser(String email) {
-            if (userRepository.existsByEmail(email)){
+            if (userRepository.existsByEmail(email)) {
                 UserDetails user = userRepository.findByEmail(email);
                 user.setDelete(true);
                 user.setDeletedAt(Instant.now());
                 userRepository.save(user);
                 return userMapper.userDetailsResponseMapper(user);
-
             }
             throw new UserNotFoundByEmailException("Email not found in the Database");
         }
 
-
         private UserDetails copy(UserDetails userRole, UserRegistrationRequest user) {
-//        UserDetails userRole = user.getUserRole()==UserRole.USER ? new User() : new TheaterOwner();
             userRole.setUserRole(user.userRole());
             userRole.setPassword(passwordEncoder.encode(user.password()));
             userRole.setEmail(user.email());
@@ -91,6 +94,4 @@
             userRepository.save(userRole);
             return userRole;
         }
-
-
     }
