@@ -6,16 +6,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TheaterMapper {
-    public TheaterResponse theaterResponseMapper(Theater theater){
+
+    public TheaterResponse theaterResponseMapper(Theater theater) {
         if (theater == null)
             return null;
-        return new TheaterResponse(
-                theater.getTheaterId(),
-                theater.getName(),
-                theater.getAddress(),
-                theater.getCity(),
-                theater.getLandmark()
-        );
+
+        return TheaterResponse.builder()
+                .theaterId(theater.getTheaterId())
+                .name(theater.getName())
+                .address(theater.getAddress())
+                .city(theater.getCity())
+                .landmark(theater.getLandmark())
+                .build();
     }
 
 }
