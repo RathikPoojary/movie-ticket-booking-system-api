@@ -6,15 +6,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
 @Entity
 @Getter
 @Setter
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Movie {
 
     @Id
@@ -42,7 +44,11 @@ public class Movie {
     @Column(name = "genre")
     private Genre genre;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Show> shows = new HashSet<>();
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    private List<Show> shows;
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    private List<Feedback> feedbacks;
+
 
 }
